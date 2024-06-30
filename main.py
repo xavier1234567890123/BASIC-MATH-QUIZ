@@ -16,30 +16,81 @@ def generate_question():
     return question, answer
 
 
-def main():
-    print("Welcome to Basic Math Facts Quiz!")
-    score = 0
-    num_questions = 5  # You can change the number of questions here
 
-    for _ in range(num_questions):
-        question, correct_answer = generate_question()
-        print(question)
+
+# checks users enter yes (y) or no (n)
+def yes_no(question):
+    while True:
+        response = input(question).lower()
+
+        # checks user response, question
+        # repeats if users don't enter yes / no
+        if response == "yes" or response == "y":
+            return True
+        elif response == "no" or response == "n":
+            return False
+        else:
+            print("Please enter yes / no")
+
+
+# Displays instructions to user
+def instructions():
+    print('''
+
+⭐⭐⭐⭐ Instructions ⭐⭐⭐⭐
+
+There are 15 rounds and they are all basic math questions
+it should be to hard.
+    
+!Good Luck!
+
+    ''')
+
+
+# start of code
+print("Welcome to Basic Math Facts Quiz!")
+if yes_no("do you want to read the instructions"):
+    instructions()
+
+score = 0
+num_questions = 15 # You can change the number of questions here
+quiz_history = []
+
+
+
+for i in range(num_questions):
+    question, correct_answer = generate_question()
+    print(question)
+    quiz_history.append(f"Question {i + 1}: {question}")
+
+    while True:
         user_answer = input("Your answer: ")
 
         try:
             user_answer = int(user_answer)
+
+            if user_answer == correct_answer:
+                print("Correct!\n")
+                score += 1
+            else:
+                print(f"Incorrect. The correct answer is {correct_answer}.\n")
+            quiz_history.append(f"Your answer was {user_answer}")
+            quiz_history.append(f"The answer was {correct_answer}")
+            quiz_history.append("")
+            break
+
         except ValueError:
             print("Please enter a valid integer.")
-            continue
 
-        if user_answer == correct_answer:
-            print("Correct!\n")
-            score += 1
-        else:
-            print(f"Incorrect. The correct answer is {correct_answer}.\n")
+if yes_no("Do you want to see the game history?"):
+    print("\n⌛⌛⌛ Game History⌛⌛⌛")
 
-    print(f"Quiz completed!\nYour score: {score}/{num_questions}")
+    for item in quiz_history:
+        print(item)
 
 
-if __name__ == "__main__":
-    main()
+print(f"Quiz completed!\nYour score: {score}/{num_questions}")
+
+print()
+print("Thank you for playing")
+
