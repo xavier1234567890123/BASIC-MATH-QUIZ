@@ -49,19 +49,19 @@ it should be to hard.
 
 # start of code
 print("Welcome to Basic Math Facts Quiz!")
-if yes_no("do you want to read the instructions"):
+if yes_no("do you want to read the instructions?      "):
     instructions()
 
 score = 0
 num_questions = 15 # You can change the number of questions here
 quiz_history = []
+current_question=0
 
 
-
-for i in range(num_questions):
+while num_questions!=0:
     question, correct_answer = generate_question()
-    print(question)
-    quiz_history.append(f"Question {i + 1}: {question}")
+    print(f"Question {current_question + 1}: {question}")
+    quiz_history.append(f"Question {current_question + 1}: {question}")
 
     while True:
         user_answer = input("Your answer: ")
@@ -81,7 +81,8 @@ for i in range(num_questions):
 
         except ValueError:
             print("Please enter a valid integer.")
-
+    current_question=current_question+1
+    num_questions=num_questions-1
 if yes_no("Do you want to see the game history?"):
     print("\n⌛⌛⌛ Game History⌛⌛⌛")
 
